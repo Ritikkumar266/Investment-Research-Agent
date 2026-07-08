@@ -1,0 +1,131 @@
+/* Center the whole page */
+.home-container {
+    max-width: 700px;
+    margin: 80px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Header */
+.header {
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 42px;
+    color: #1e293b;
+    margin-bottom: 15px;
+}
+
+.header p {
+    color: #64748b;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Search area */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Input */
+.search-container input {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    outline: none;
+}
+
+.search-container input:focus {
+    border-color: #2563eb;
+}
+
+/* Button */
+.search-container button {
+    width: 220px;
+    margin: 0 auto;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.search-container button:hover {
+    background: #1d4ed8;
+}
+
+.search-container button:disabled {
+    background: gray;
+    cursor: not-allowed;
+}
+.loading-card {
+    margin-top: 30px;
+    padding: 40px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.loading-card h2 {
+    margin: 20px 0 10px;
+    color: #1e293b;
+}
+
+.loading-card p {
+    color: #64748b;
+}
+.spinner {
+    width: 60px;
+    height: 60px;
+    margin: auto;
+
+    border: 6px solid #ddd;
+    border-top: 6px solid #2563eb;
+
+    border-radius: 50%;
+
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+.result-card {
+    margin-top: 40px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    text-align: left;
+}
+
+.result-card h2 {
+    color: #1e293b;
+    margin-bottom: 10px;
+}
+
+.result-card h3 {
+    color: green;
+    margin-bottom: 15px;
+}
+
+.result-card p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
