@@ -1,83 +1,200 @@
+import StockChart from "./StockChart";
+
 function ResultCard({ result }) {
-
     return (
-
         <div className="result-card">
 
-            <h2>{result.company}</h2>
+            {/* Header */}
+            <div className="result-header">
 
-            <h3>{result.decision}</h3>
+                <h2>{result.company}</h2>
 
-            <p>
+                <span
+                    className={
+                        result.decision === "INVEST"
+                            ? "badge invest"
+                            : "badge pass"
+                    }
+                >
+                    {result.decision}
+                </span>
 
-                <strong>Confidence:</strong>
+            </div>
 
-                {" "}
+            {/* AI Stats */}
+            <div className="stats">
 
-                {result.confidence}%
+                <div>
+                    <h4>Confidence</h4>
+                    <p>{result.confidence}%</p>
+                </div>
 
-            </p>
+                <div>
+                    <h4>Score</h4>
+                    <p>{result.score}/100</p>
+                </div>
 
-            <p>
+                <div>
+                    <h4>Risk</h4>
+                    <p>{result.risk}</p>
+                </div>
 
-                <strong>Investment Score:</strong>
+            </div>
 
-                {" "}
+            {/* Financial Data */}
+            {result.finance && (
 
-                {result.score}/100
+                <div className="finance-grid">
 
-            </p>
+                    <div className="finance-box">
+                        <h4>Current Price</h4>
+                        <p>
+                            {result.finance.price
+                                ? `$${result.finance.price.toFixed(2)}`
+                                : "N/A"}
+                        </p>
+                    </div>
 
-            <p>
+                    <div className="finance-box">
+                        <h4>Market Cap</h4>
+                        <p>
+                            {result.finance.marketCap
+                                ? `$${(
+                                      result.finance.marketCap /
+                                      1_000_000_000_000
+                                  ).toFixed(2)}T`
+                                : "N/A"}
+                        </p>
+                    </div>
 
-                <strong>Risk:</strong>
+                    <div className="finance-box">
+                        <h4>P/E Ratio</h4>
+                        <p>
+                            {result.finance.peRatio
+                                ? result.finance.peRatio.toFixed(2)
+                                : "N/A"}
+                        </p>
+                    </div>
 
-                {" "}
+                    <div className="finance-box">
+                        <h4>EPS</h4>
+                        <p>
+                            {result.finance.eps
+                                ? result.finance.eps.toFixed(2)
+                                : "N/A"}
+                        </p>
+                    </div>
 
-                {result.risk}
+                    <div className="finance-box">
+                        <h4>52W High</h4>
+                        <p>
+                            {result.finance.fiftyTwoWeekHigh
+                                ? `$${result.finance.fiftyTwoWeekHigh.toFixed(2)}`
+                                : "N/A"}
+                        </p>
+                    </div>
 
-            </p>
+                    <div className="finance-box">
+                        <h4>52W Low</h4>
+                        <p>
+                            {result.finance.fiftyTwoWeekLow
+                                ? `$${result.finance.fiftyTwoWeekLow.toFixed(2)}`
+                                : "N/A"}
+                        </p>
+                    </div>
 
-            <h4>Summary</h4>
+                </div>
 
-            <p>{result.summary}</p>
+            )}
 
-            <h4>Pros</h4>
+            {/* Stock Price Chart */}
+            {result.history?.length > 0 && (
+                <StockChart history={result.history} />
+            )}
 
-            <ul>
+            {/* Summary */}
+            <div className="summary">
 
-                {
+                <h3>Summary</h3>
 
-                    result.pros.map((item,index)=>(
+                <p>{result.summary}</p>
 
-                        <li key={index}>{item}</li>
+            </div>
 
-                    ))
+            {/* Pros & Cons */}
+            <div className="pros-cons">
 
-                }
+                <div>
 
-            </ul>
+                    <h3>✅ Pros</h3>
 
-            <h4>Cons</h4>
+                    <ul>
 
-            <ul>
+                        {result.pros?.map((pro, index) => (
 
-                {
+                            <li key={index}>{pro}</li>
 
-                    result.cons.map((item,index)=>(
+                        ))}
 
-                        <li key={index}>{item}</li>
+                    </ul>
 
-                    ))
+                </div>
 
-                }
+                <div>
 
-            </ul>
+                    <h3>❌ Cons</h3>
+
+                    <ul>
+
+                        {result.cons?.map((con, index) => (
+
+                            <li key={index}>{con}</li>
+
+                        ))}
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            {/* Latest News */}
+            {result.news?.length > 0 && (
+
+                <div className="news-section">
+
+                    <h3>📰 Latest News</h3>
+
+                    {result.news.map((article, index) => (
+
+                        <div className="news-card" key={index}>
+
+                            <h4>{article.title}</h4>
+
+                            <p>
+                                {article.description ||
+                                    article.content ||
+                                    "No description available."}
+                            </p>
+
+                            <a
+                                href={article.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Read Full Article →
+                            </a>
+
+                        </div>
+
+                    ))}
+
+                </div>
+
+            )}
 
         </div>
-
     );
-
 }
 
 export default ResultCard;

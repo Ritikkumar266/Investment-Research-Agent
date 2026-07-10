@@ -6,81 +6,121 @@ import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import AnalyzeButton from "../components/AnalyzeButton";
 import LoadingCard from "../components/LoadingCard";
+
 function Home() {
-  const [company, setCompany] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState("");
-  const [result, setResult] = useState(null);
- const handleAnalyze = async () => {
 
-    if (company.trim() === "") {
-        alert("Please enter a company name.");
-        return;
-    }
+    const [company, setCompany] = useState("");
 
-    try {
+    const [suggestions, setSuggestions] = useState([]);
 
-        setIsLoading(true);
-        setLoadingMessage("Analyzing company...");
+    const [selectedSymbol, setSelectedSymbol] = useState("");
 
-        const response = await api.post("/api/analyze", {
-            company
-        });
+    const [isLoading, setIsLoading] = useState(false);
 
-        setResult(response.data);
+    const [loadingMessage, setLoadingMessage] = useState("");
 
-    } catch (error) {
+    const [result, setResult] = useState(null);
 
-        console.error(error);
-        alert("Something went wrong.");
+    const handleAnalyze = async () => {
 
-    } finally {
+        if (!company.trim()) {
 
-        setIsLoading(false);
+            alert("Please enter a company name.");
 
-    }
+            return;
 
-};
-  return (
-    <main className="home-container">
-     <Header />
+        }
 
-    {
-    isLoading ? (
+        try {
 
-        <LoadingCard
-            message={loadingMessage}
-        />
+            setIsLoading(true);
 
-    ) : (
+            setLoadingMessage("Analyzing company...");
 
-        <div className="search-container">
+            const response = await api.post("/api/analyze", {
 
-            <SearchBar
-                company={company}
-                setCompany={setCompany}
-            />
+                company,
 
-            <AnalyzeButton
-                onAnalyze={handleAnalyze}
-                isLoading={isLoading}
-            />
+                symbol: selectedSymbol
 
-        </div>
+            });
 
-    )
-}
- {
-    result && (
+            console.log(response.data);
 
-        <ResultCard
-            result={result}
-        />
+            setResult(response.data);
 
-    )
-}
-    </main>
-  );
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            alert(error.response?.data?.message || "Something went wrong.");
+
+        }
+
+        finally {
+
+            setIsLoading(false);
+
+        }
+
+    };
+
+    return (
+
+        <main className="home-container">
+
+            <Header />
+
+            {
+
+                isLoading ?
+
+                    <LoadingCard message={loadingMessage} />
+
+                    :
+
+                    <div className="search-container">
+
+                        <SearchBar
+
+                            company={company}
+
+                            setCompany={setCompany}
+
+                            suggestions={suggestions}
+
+                            setSuggestions={setSuggestions}
+
+                            setSelectedSymbol={setSelectedSymbol}
+
+                        />
+
+                        <AnalyzeButton
+
+                            onAnalyze={handleAnalyze}
+
+                            isLoading={isLoading}
+
+                        />
+
+                    </div>
+
+            }
+
+            {
+
+                result &&
+
+                <ResultCard result={result} />
+
+            }
+
+        </main>
+
+    );
+
 }
 
 export default Home;
