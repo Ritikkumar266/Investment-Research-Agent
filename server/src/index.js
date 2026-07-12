@@ -11,14 +11,14 @@ const app = express();
 
 // Middleware
 app.use(
-    cors({
-        origin: [
-            "http://localhost:5173",
-            process.env.FRONTEND_URL
-        ],
-        methods: ["GET", "POST"],
-        credentials: true
-    })
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://investment-research-agent-85k2xmsmt-ritiks-projects-219f3174.vercel.app"
+    ],
+    methods: ["GET", "POST"],
+    credentials: true
+  })
 );
 
 app.use(express.json());
