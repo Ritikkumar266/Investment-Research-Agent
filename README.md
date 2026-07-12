@@ -1,5 +1,23 @@
 # 📈 AI Investment Research Agent
 
+An AI-powered investment research application that analyzes publicly traded companies using **real-time financial data**, **latest news**, and **Large Language Models (LLMs)** to generate an investment recommendation.
+
+---
+
+# 🌐 Live Demo
+
+### Frontend (Vercel)
+
+https://investment-research-agent-ten.vercel.app
+
+### Backend API (Render)
+
+https://investment-research-agent-503q.onrender.com
+
+### GitHub Repository
+
+https://github.com/Ritikkumar266/Investment-Research-Agent 
+
 An AI-powered investment research application that analyzes publicly traded companies using **real-time financial data**, **latest news**, and **Large Language Models (LLMs)** to generate an investment recommendation. The application provides investors with a concise report containing financial metrics, AI-generated insights, risk assessment, and recent market news.
 
 ---
@@ -20,6 +38,30 @@ Users can:
 The application is designed for educational and research purposes and demonstrates how AI agents can assist in financial analysis.
 
 ---
+# 🛠️ Tech Stack
+
+### Frontend
+- React.js
+- Vite
+- Axios
+- Recharts
+- CSS3
+
+### Backend
+- Node.js
+- Express.js
+
+### AI
+- OpenRouter
+- GPT-4.1 Mini
+
+### External APIs
+- Yahoo Finance
+- GNews API
+
+### Deployment
+- Vercel
+- Render
 
 # How to Run It
 
@@ -35,7 +77,7 @@ The application is designed for educational and research purposes and demonstrat
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Investment_Research.git
+git clone https://github.com/Ritikkumar266/Investment-Research-Agent
 
 cd Investment_Research
 ```
@@ -395,7 +437,7 @@ Investment_Research
 
 ---
 
-# Future Improvements
+# # What I Would Improve With More Time
 
 - Portfolio Tracker
 - Compare Multiple Companies
@@ -412,8 +454,30 @@ Investment_Research
 
 # Author
 
-**Ritik Kumar**
+**Ritik Kumar Barnwal**
 
-M.Tech Student | Full Stack Developer | AI Enthusiast
+B.Tech Student | Full Stack Developer | AI Enthusiast
 
 GitHub: https://github.com/Ritikkumar266
+
+
+
+
+
+# 🤖 LLM Development Process
+
+This project was developed iteratively using **ChatGPT (OpenAI GPT-5.5)** as an AI development assistant.
+
+ChatGPT was used throughout the development lifecycle for:
+
+- Project planning
+- Architecture design
+- Backend API implementation
+- Prompt engineering
+- AI integration
+- React frontend development
+- Debugging
+- Deployment
+- Documentation
+
+A detailed development summary is available in: llm.md
