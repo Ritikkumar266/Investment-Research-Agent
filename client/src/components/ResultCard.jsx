@@ -1,13 +1,43 @@
 import StockChart from "./StockChart";
+import CompanyLogo from "./CompanyLogo";
 
 function ResultCard({ result }) {
     return (
         <div className="result-card">
 
-            {/* Header */}
+            {/* ================= HEADER ================= */}
+
             <div className="result-header">
 
-                <h2>{result.company}</h2>
+                <div className="company-info">
+
+                    <CompanyLogo
+                        symbol={result.finance?.symbol}
+                        company={result.company}
+                    />
+
+                    <div>
+
+                        <h2>{result.company}</h2>
+
+                        <p className="ticker">
+                            {result.finance?.symbol} • {result.finance?.sector || "Unknown Sector"}
+                        </p>
+
+                        {result.finance?.website && (
+                            <a
+                                href={result.finance.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="company-site"
+                            >
+                                🌐 Official Website
+                            </a>
+                        )}
+
+                    </div>
+
+                </div>
 
                 <span
                     className={
@@ -21,7 +51,8 @@ function ResultCard({ result }) {
 
             </div>
 
-            {/* AI Stats */}
+            {/* ================= AI STATS ================= */}
+
             <div className="stats">
 
                 <div>
@@ -30,7 +61,7 @@ function ResultCard({ result }) {
                 </div>
 
                 <div>
-                    <h4>Score</h4>
+                    <h4>AI Score</h4>
                     <p>{result.score}/100</p>
                 </div>
 
@@ -41,13 +72,14 @@ function ResultCard({ result }) {
 
             </div>
 
-            {/* Financial Data */}
+            {/* ================= FINANCIAL DATA ================= */}
+
             {result.finance && (
 
                 <div className="finance-grid">
 
                     <div className="finance-box">
-                        <h4>Current Price</h4>
+                        <h4>💲 Current Price</h4>
                         <p>
                             {result.finance.price
                                 ? `$${result.finance.price.toFixed(2)}`
@@ -56,19 +88,16 @@ function ResultCard({ result }) {
                     </div>
 
                     <div className="finance-box">
-                        <h4>Market Cap</h4>
+                        <h4>🏢 Market Cap</h4>
                         <p>
                             {result.finance.marketCap
-                                ? `$${(
-                                      result.finance.marketCap /
-                                      1_000_000_000_000
-                                  ).toFixed(2)}T`
+                                ? `$${(result.finance.marketCap / 1_000_000_000_000).toFixed(2)}T`
                                 : "N/A"}
                         </p>
                     </div>
 
                     <div className="finance-box">
-                        <h4>P/E Ratio</h4>
+                        <h4>📈 P/E Ratio</h4>
                         <p>
                             {result.finance.peRatio
                                 ? result.finance.peRatio.toFixed(2)
@@ -77,7 +106,7 @@ function ResultCard({ result }) {
                     </div>
 
                     <div className="finance-box">
-                        <h4>EPS</h4>
+                        <h4>💰 EPS</h4>
                         <p>
                             {result.finance.eps
                                 ? result.finance.eps.toFixed(2)
@@ -86,7 +115,25 @@ function ResultCard({ result }) {
                     </div>
 
                     <div className="finance-box">
-                        <h4>52W High</h4>
+                        <h4>📊 Beta</h4>
+                        <p>
+                            {result.finance.beta
+                                ? result.finance.beta.toFixed(2)
+                                : "N/A"}
+                        </p>
+                    </div>
+
+                    <div className="finance-box">
+                        <h4>💵 Dividend Yield</h4>
+                        <p>
+                            {result.finance.dividendYield
+                                ? `${(result.finance.dividendYield * 100).toFixed(2)}%`
+                                : "N/A"}
+                        </p>
+                    </div>
+
+                    <div className="finance-box">
+                        <h4>📈 52W High</h4>
                         <p>
                             {result.finance.fiftyTwoWeekHigh
                                 ? `$${result.finance.fiftyTwoWeekHigh.toFixed(2)}`
@@ -95,10 +142,26 @@ function ResultCard({ result }) {
                     </div>
 
                     <div className="finance-box">
-                        <h4>52W Low</h4>
+                        <h4>📉 52W Low</h4>
                         <p>
                             {result.finance.fiftyTwoWeekLow
                                 ? `$${result.finance.fiftyTwoWeekLow.toFixed(2)}`
+                                : "N/A"}
+                        </p>
+                    </div>
+
+                    <div className="finance-box">
+                        <h4>🏭 Industry</h4>
+                        <p>
+                            {result.finance.industry || "N/A"}
+                        </p>
+                    </div>
+
+                    <div className="finance-box">
+                        <h4>👥 Employees</h4>
+                        <p>
+                            {result.finance.employees
+                                ? result.finance.employees.toLocaleString()
                                 : "N/A"}
                         </p>
                     </div>
@@ -107,21 +170,24 @@ function ResultCard({ result }) {
 
             )}
 
-            {/* Stock Price Chart */}
+            {/* ================= STOCK CHART ================= */}
+
             {result.history?.length > 0 && (
                 <StockChart history={result.history} />
             )}
 
-            {/* Summary */}
+            {/* ================= SUMMARY ================= */}
+
             <div className="summary">
 
-                <h3>Summary</h3>
+                <h3>📄 AI Summary</h3>
 
                 <p>{result.summary}</p>
 
             </div>
 
-            {/* Pros & Cons */}
+            {/* ================= PROS & CONS ================= */}
+
             <div className="pros-cons">
 
                 <div>
@@ -158,7 +224,8 @@ function ResultCard({ result }) {
 
             </div>
 
-            {/* Latest News */}
+            {/* ================= NEWS ================= */}
+
             {result.news?.length > 0 && (
 
                 <div className="news-section">
@@ -169,12 +236,36 @@ function ResultCard({ result }) {
 
                         <div className="news-card" key={index}>
 
+                            {article.image && (
+
+                                <img
+                                    src={article.image}
+                                    alt={article.title}
+                                    className="news-image"
+                                />
+
+                            )}
+
                             <h4>{article.title}</h4>
 
+                            <small>
+
+                                {article.source || "Unknown Source"}
+
+                                {" • "}
+
+                                {article.publishedAt
+                                    ? new Date(article.publishedAt).toLocaleDateString()
+                                    : "Unknown Date"}
+
+                            </small>
+
                             <p>
+
                                 {article.description ||
                                     article.content ||
                                     "No description available."}
+
                             </p>
 
                             <a

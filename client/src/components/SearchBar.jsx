@@ -92,6 +92,9 @@ function SearchBar({
 
                                         setSuggestions([]);
 
+                                        // remove focus from the input
+                                        document.activeElement.blur();
+
                                     }}
 
                                 >
